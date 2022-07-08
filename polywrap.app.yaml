@@ -1,0 +1,4 @@
+name: temp
+format: 0.1.0
+language: app/typescript
+schema: ./schema.graphql
