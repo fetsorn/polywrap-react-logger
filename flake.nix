@@ -1,7 +1,13 @@
 {
   description = "polywrap-react-logger";
-  inputs = { nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; };
-  outputs = inputs@{ self, nixpkgs }:
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    polywrap = {
+      url = "github:consideritdone/polywrap-nix";
+      inputs.monorepo.url = "github:polywrap/monorepo/1048-tracing";
+    };
+  };
+  outputs = inputs@{ self, nixpkgs, polywrap, ... }:
     let
       eachSystem = systems: f:
         let
@@ -27,22 +33,59 @@
     in eachSystem defaultSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        wrapper = pkgs.stdenv.mkDerivation {
+          name = "wrapper";
+          src = builtins.fetchTarball {
+            # https://ipfs.io/ipfs/QmbD6vJJRXQRj1YLszjhxNjUrCj8xRzbokc2vLYMcR8ZuQ`
+            # https://dweb.link/api/v0/get?arg=/ipfs/bafybeif7hdvwp2ou5b3n63elqed6rh5iidmorkzslsguyjuvpxhpl53zk4&archive=true
+            url =
+              "https://dweb.link/api/v0/get?arg=/ipfs/bafybeif7hdvwp2ou5b3n63elqed6rh5iidmorkzslsguyjuvpxhpl53zk4&output=a.tar.gz";
+            sha256 = "sha256-mg8EmWG2nii3vXWeFW7oSbHLqaJ8RizVwe0ezLOhJZk=";
+          };
+          installPhase = "cp -r . $out";
+        };
+        yarnLock = pkgs.concatTextFile {
+          name = "yarn.lock";
+          files = [ ./yarn.lock "${polywrap.inputs.monorepo}/yarn.lock" ];
+        };
         polywrap-react-logger = pkgs.mkYarnPackage rec {
           name = "polywrap-react-logger";
           version = "0.0.1";
           src = ./.;
-          configurePhase = ''
-            cp -r $node_modules node_modules
-            chmod -R 755 node_modules
-          '';
+          inherit yarnLock;
+          workspaceDependencies = [
+            polywrap.packages.${system}.client-js
+            polywrap.packages.${system}.core-js
+            polywrap.packages.${system}.ipfs-resolver-plugin-js
+            polywrap.packages.${system}.ipfs-plugin-js
+            polywrap.packages.${system}.ens-resolver-plugin-js
+            polywrap.packages.${system}.logger-plugin-js
+            polywrap.packages.${system}.tracing-js
+            polywrap.packages.${system}.react
+            polywrap.packages.${system}.polywrap
+          ];
           buildPhase = ''
-            NODE_ENV=development yarn run build
-            cp -r build $out
+            substituteInPlace deps/${name}/schema.graphql \
+               --replace "wrap://ipfs/QmbD6vJJRXQRj1YLszjhxNjUrCj8xRzbokc2vLYMcR8ZuQ" \
+                         "wrap://fs/${wrapper}"
+            yarn node ${
+              polywrap.packages.${system}.polywrap
+            }/bin/polywrap app codegen
+            substituteInPlace deps/${name}/src/wrap/schema.ts \
+               --replace "wrap://fs/${wrapper}" \
+                         "wrap://ipfs/QmbD6vJJRXQRj1YLszjhxNjUrCj8xRzbokc2vLYMcR8ZuQ"
+            substituteInPlace deps/${name}/src/wrap/types.ts \
+               --replace "wrap://fs/${wrapper}" \
+                         "wrap://ipfs/QmbD6vJJRXQRj1YLszjhxNjUrCj8xRzbokc2vLYMcR8ZuQ"
+            substituteInPlace deps/${name}/schema.graphql \
+               --replace "wrap://fs/${wrapper}" \
+                         "wrap://ipfs/QmbD6vJJRXQRj1YLszjhxNjUrCj8xRzbokc2vLYMcR8ZuQ"
+            yarn react-scripts build
           '';
           dontInstall = true;
           distPhase = ''
-            true
+            cp -r deps/${name}/build $out
           '';
         };
-      in { packages = { inherit polywrap-react-logger; }; });
+      in { packages = { inherit polywrap-react-logger wrapper; }; });
 }
