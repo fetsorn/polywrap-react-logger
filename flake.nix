@@ -80,7 +80,7 @@
             substituteInPlace deps/${name}/schema.graphql \
                --replace "wrap://fs/${wrapper}" \
                          "wrap://ipfs/QmbD6vJJRXQRj1YLszjhxNjUrCj8xRzbokc2vLYMcR8ZuQ"
-            yarn react-scripts build
+            yarn react-app-rewired build
           '';
           dontInstall = true;
           distPhase = ''
