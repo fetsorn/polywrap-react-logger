@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "exporter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1658851346,
+        "narHash": "sha256-ThE3eZfUUX3lW1TqShzhVjbKvjzVHkAzj8WxKLYxBew=",
+        "ref": "dev",
+        "rev": "413192256f25b03a67e055f891fb9d8d261bd39e",
+        "revCount": 5,
+        "type": "git",
+        "url": "https://source.fetsorn.website/fetsorn/opentelemetry-console-exporter"
+      },
+      "original": {
+        "ref": "dev",
+        "type": "git",
+        "url": "https://source.fetsorn.website/fetsorn/opentelemetry-console-exporter"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1656065134,
@@ -18,27 +35,27 @@
     "monorepo": {
       "flake": false,
       "locked": {
-        "lastModified": 1658332321,
-        "narHash": "sha256-wwHisXTX4C+QGYCG02A6yY7io0ia6KEHfkdoeQJgFXA=",
-        "owner": "polywrap",
-        "repo": "monorepo",
-        "rev": "f6902550d30f924a8bd1678fc2e6f1b031d9c814",
-        "type": "github"
+        "lastModified": 1658913443,
+        "narHash": "sha256-owQrV65Qpet+XB4JBjoh7EtcHNrzQy3Ju0V9LiC87fI=",
+        "ref": "fetsorn/tracing",
+        "rev": "88d6f7f11ef5e689cc39cb5050a9f75d0c70926a",
+        "revCount": 4740,
+        "type": "git",
+        "url": "https://source.fetsorn.website/fetsorn/monorepo"
       },
       "original": {
-        "owner": "polywrap",
-        "ref": "origin-dev",
-        "repo": "monorepo",
-        "type": "github"
+        "ref": "fetsorn/tracing",
+        "type": "git",
+        "url": "https://source.fetsorn.website/fetsorn/monorepo"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1658397257,
-        "narHash": "sha256-2M1Ih3r8/mL8h0n8+PYoGXFazVY9zBcGJrNxNC3JgNo=",
+        "lastModified": 1658822272,
+        "narHash": "sha256-M87AIbje5cNnAy9iP3uoufZFvxooqtJq2ZRXeUeBO44=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a174de16edfc6aa0893530b9a95d0bd0c2a952b7",
+        "rev": "cc895a46b238e2fb09844583e4566f09060d0f81",
         "type": "github"
       },
       "original": {
@@ -66,11 +83,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1656847440,
-        "narHash": "sha256-9LRlUrdU+TNAAp393hqDaKnwBssLLkxpRQEAzLSC2pM=",
+        "lastModified": 1658822272,
+        "narHash": "sha256-M87AIbje5cNnAy9iP3uoufZFvxooqtJq2ZRXeUeBO44=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d63774ae64431366be4d1f2aede50e52204c7d6c",
+        "rev": "cc895a46b238e2fb09844583e4566f09060d0f81",
         "type": "github"
       },
       "original": {
@@ -82,23 +99,25 @@
     },
     "polywrap": {
       "inputs": {
+        "exporter": "exporter",
         "monorepo": "monorepo",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-nodejs": "nixpkgs-nodejs",
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1658306723,
-        "narHash": "sha256-UhpBg2qdbsqMWOr4oZHnAJNP6AwSpuNI3nBM0LUElnU=",
-        "owner": "consideritdone",
-        "repo": "polywrap-nix",
-        "rev": "1084196d9a1115da505e4ae3f85f480ddb347d06",
-        "type": "github"
+        "lastModified": 1658913709,
+        "narHash": "sha256-nrL6Kyv6ZXMASGfNBB+28mnf1CsGOJezQDIInUz1o3Y=",
+        "ref": "object",
+        "rev": "83c1cf954ab1af3a2d61975af43d0a0324d4b65b",
+        "revCount": 8,
+        "type": "git",
+        "url": "https://source.fetsorn.website/fetsorn/polywrap-nix"
       },
       "original": {
-        "owner": "consideritdone",
-        "repo": "polywrap-nix",
-        "type": "github"
+        "ref": "object",
+        "type": "git",
+        "url": "https://source.fetsorn.website/fetsorn/polywrap-nix"
       }
     },
     "root": {
@@ -116,11 +135,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1656989406,
-        "narHash": "sha256-w2oW0C6qRUy/VsTKRFEM/7Xxb+nHM+QkVosA3fMRgBM=",
+        "lastModified": 1658890458,
+        "narHash": "sha256-czG3asDAqn2PG8HdjOG+6AEqJazkT/tLuuuScYVYYaA=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "2be2b68fc248883b82d3c7bfa6e5c0caff68223d",
+        "rev": "c6264ea118f0f9f206329cf7ca4848f4162090b5",
         "type": "github"
       },
       "original": {

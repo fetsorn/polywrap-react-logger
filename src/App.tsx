@@ -8,10 +8,12 @@ import './App.css';
 export const App: React.FC = () => {
   const [priority, setPriority] = React.useState(1);
   const [detail, setDetail] = React.useState(false);
+  const [isObject, setIsObject] = React.useState(false);
   const [url, setUrl] = React.useState("https://otel.fetsorn.website/v1/traces");
   const tracerConfig = {
-    consoleEnabled: true,
-    consoleDetailed: detail,
+    consoleIconEnabled: !isObject,
+    consoleIconDetailed: detail,
+    consoleObjectEnabled: isObject,
     httpEnabled: true,
     httpUrl: url,
     tracingLevel: priority
@@ -50,6 +52,16 @@ export const App: React.FC = () => {
               className='hello__input'
               onChange={(event) => setDetail(event?.target.checked)}
               placeholder="detail"
+            />
+          </label>
+          <br></br>
+          <label className='hello__text'>
+            Check to see grouped output
+            <input
+              type="checkbox"
+              className='hello__input'
+              onChange={(event) => setIsObject(event?.target.checked)}
+              placeholder="object"
             />
           </label>
         </div>

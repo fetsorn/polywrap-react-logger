@@ -3,8 +3,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     polywrap = {
-      url = "github:consideritdone/polywrap-nix";
-      inputs.monorepo.url = "github:polywrap/monorepo/1048-tracing";
+      url =
+        "git+https://source.fetsorn.website/fetsorn/polywrap-nix?ref=object";
+      inputs.monorepo.url =
+        "git+https://source.fetsorn.website/fetsorn/monorepo?ref=fetsorn/tracing";
     };
   };
   outputs = inputs@{ self, nixpkgs, polywrap, ... }:
