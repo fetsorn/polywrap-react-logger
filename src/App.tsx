@@ -4,11 +4,6 @@ import { HelloWorld } from './HelloWorld';
 import { Header } from './Header';
 import Logo from './logo.png';
 import './App.css';
-import { ipfsPlugin } from "@polywrap/ipfs-plugin-js";
-import { ipfsResolverPlugin } from "@polywrap/ipfs-resolver-plugin-js";
-import { ensResolverPlugin } from "@polywrap/ens-resolver-plugin-js";
-import { loggerPlugin } from "@polywrap/logger-plugin-js";
-import { PluginRegistration } from "@polywrap/core-js";
 
 export const App: React.FC = () => {
   const [priority, setPriority] = React.useState(1);
